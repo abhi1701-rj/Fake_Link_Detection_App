@@ -1,8 +1,6 @@
 streamlit
-fastapi
-uvicorn
-scikit-learn
 pandas
 numpy
-joblib
+scikit-learn
 requests
+joblib
