@@ -1,30 +1,41 @@
 import streamlit as st
 import joblib
-import os
 import numpy as np
-from feature_extraction import extract_features
 
-# Load model
-MODEL_PATH = "rf_basic.pkl"
-model = joblib.load(MODEL_PATH)
+model = joblib.load("model.pkl")
 
-st.set_page_config(page_title="Fake Link Detection", page_icon="🔐")
+FEATURE_NAMES = [
+    "url_length",
+    "count_dots",
+    "count_slash",
+    "has_https",
+    "has_ip",
+    "digit_count",
+    "special_char_count",
+    "suspicious_words",
+    "redirect_count",
+    "subdomain_count"
+]
 
-st.title("🔐 Fake Link Detection System")
-st.write("Enter a URL to check whether it is **Safe** or **Phishing**.")
+st.title("Fake Link Detection")
 
-url = st.text_input("Enter URL")
+selected_features = st.multiselect(
+    "Select features to use",
+    FEATURE_NAMES,
+    default=FEATURE_NAMES[:8]
+)
 
-if st.button("Check URL"):
-    if url.strip() == "":
-        st.warning("Please enter a URL")
+feature_values = []
+
+for feature in FEATURE_NAMES:
+    if feature in selected_features:
+        value = st.number_input(f"Enter {feature}", value=0)
+        feature_values.append(value)
     else:
-        features = extract_features(url)
-        features = np.array(features).reshape(1, -1)
+        feature_values.append(0)
 
-        prediction = model.predict(features)[0]
+features = np.array([feature_values])
 
-        if prediction == 1:
-            st.error("⚠️ Phishing / Fake Link Detected")
-        else:
-            st.success("✅ This link looks Safe")
+if st.button("Predict"):
+    prediction = model.predict(features)[0]
+    st.success(f"Prediction: {prediction}")
