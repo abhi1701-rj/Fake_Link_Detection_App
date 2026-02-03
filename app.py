@@ -14,7 +14,6 @@ model = joblib.load(MODEL_PATH)
 # ---------------- Header ----------------
 st.title("🚨 Fake Link Detection System")
 st.write("Check whether a URL is **SAFE or FAKE** using Machine Learning")
-st.write("Raw model output:", prediction)
 st.divider()
 
 # ---------------- Input ----------------
