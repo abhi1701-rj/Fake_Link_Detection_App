@@ -17,7 +17,12 @@ model = joblib.load(os.path.join(BASE_DIR, "model.pkl"))
 
 # ---------------- TITLE ----------------
 st.title("🚨 Fake Link Detection System")
+<<<<<<< HEAD
 st.markdown("Detect malicious URLs instantly using **Machine Learning**")
+=======
+st.write("Check whether a URL is **SAFE or FAKE** using Machine Learning")
+st.divider()
+>>>>>>> f3ee6fe7d45f3cc6754bc9413aa6c26c78b959d0
 
 st.markdown("---")
 
