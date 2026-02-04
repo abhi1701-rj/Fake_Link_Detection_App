@@ -5,6 +5,7 @@ import re
 import pandas as pd
 import numpy as np
 
+
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
     page_title="Fake Link Detection",
@@ -17,14 +18,10 @@ model = joblib.load(os.path.join(BASE_DIR, "model.pkl"))
 
 # ---------------- TITLE ----------------
 st.title("🚨 Fake Link Detection System")
-<<<<<<< HEAD
+ 
 st.markdown("Detect malicious URLs instantly using **Machine Learning**")
-=======
-st.write("Check whether a URL is **SAFE or FAKE** using Machine Learning")
-st.divider()
->>>>>>> f3ee6fe7d45f3cc6754bc9413aa6c26c78b959d0
 
-st.markdown("---")
+st.write("Check whether a URL is **SAFE or FAKE** using Machine Learning")
 
 # ---------------- INPUT ----------------
 url = st.text_input("🔗 Enter a URL to test", placeholder="https://www.google.com")
