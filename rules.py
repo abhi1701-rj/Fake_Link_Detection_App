@@ -1,5 +1,8 @@
 import re
 import urllib.parse
+from difflib import SequenceMatcher
+from urllib.parse import urlparse
+
 
 SUSPICIOUS_KEYWORDS = [
     "login", "verify", "secure", "update",
@@ -26,6 +29,22 @@ def contains_unicode(url):
 
 def contains_suspicious_keywords(url):
     return any(word in url.lower() for word in SUSPICIOUS_KEYWORDS)
+TRUSTED_DOMAINS = [
+    "google.com",
+    "amazon.com",
+    "facebook.com",
+    "paypal.com",
+    "microsoft.com",
+    "apple.com"
+]
+
+def is_typosquatting(domain):
+    for legit in TRUSTED_DOMAINS:
+        ratio = SequenceMatcher(None, domain, legit).ratio()
+        if ratio > 0.85 and domain != legit:
+            return True
+    return False
+
 
 def rule_based_check(url):
     flags = []
@@ -44,5 +63,12 @@ def rule_based_check(url):
 
     if contains_suspicious_keywords(url):
         flags.append("Suspicious keywords")
+
+    # 🔥 Typosquatting check (single-letter attack)
+    parsed = urlparse(url)
+    domain = parsed.netloc.replace("www.", "")
+
+    if domain and is_typosquatting(domain):
+        flags.append("Possible typosquatting attack")
 
     return flags
