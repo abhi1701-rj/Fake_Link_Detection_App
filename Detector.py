@@ -27,9 +27,8 @@ st.set_page_config(
     layout="centered"
 )
 
-st.markdown('<div class="title">🚨 Fake Link Detection System</div>', unsafe_allow_html=True)
-st.markdown('<div class="card">Hybrid Detection: Rule-based + Machine Learning</div>', unsafe_allow_html=True)
-
+st.title("🚨 Fake Link Detection System")
+st.write("Hybrid Detection: Rule-based + Machine Learning")
 
 # Input
 url = st.text_input("🔗 Enter a URL to analyze", "https://www.google.com")
