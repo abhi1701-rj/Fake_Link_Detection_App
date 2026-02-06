@@ -49,10 +49,10 @@ def final_decision(url, ml_conf):
     if len(reasons) >= 2:
         return "FAKE ❌", reasons, age
 
-    if ml_conf < 0.7:
-        return "SUSPICIOUS ⚠️", reasons, age
-
-    return "SAFE ✅", reasons, age
+    if ml_conf > 0.7:
+    	return "SUSPICIOUS ⚠️", reasons, age
+    else:
+    	return "SAFE ✅", reasons, age
 
 # Analyze button
 if st.button("🔍 Analyze URL"):
